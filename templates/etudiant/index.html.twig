@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creer Etudiant{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-4 col-lg-4 col-xl-2">
+                <p>Listes des Etudiant </p>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl--">
+                <li> <a class="trigger" href="#"><i class="fas fa-search"></i></a></li>
+                <div class="modal">
+                    <div class="modal-content">
+                        <span class="close-button">&times;</span>
+                        <form action="{{ path('Search') }}" method="POST">
+                            <input type="search"> <input type="submit" value="Rechercher">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-md-4 col-lg-4 col-xl-4">
+                <p style="float: right"> <a href="{{ path('etudiant_new') }}">Creer un Nouveau Etudiant</a>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+
+            <div  class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                <table id="dtBasicExample" class="table table-bordered table-striped mb-0 ">
+
+
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Matricule</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Telephone</th>
+                        <th>Email</th>
+                        <th>Date_naissance</th>
+                        <th>Type_etudiant</th>
+                        <th>Type_bourse</th>
+                        <th>Adrese</th>
+                        <th colspan="2">ACTION</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for etudiant in etudiants %}
+                        <tr>
+                            <td>{{ etudiant.id }}</td>
+                            <td>{{ etudiant.matricule }}</td>
+                            <td>{{ etudiant.nom }}</td>
+                            <td>{{ etudiant.prenom }}</td>
+                            <td>{{ etudiant.telephone }}</td>
+                            <td>{{ etudiant.email }}</td>
+                            <td>{{ etudiant.dateNaissance ? etudiant.dateNaissance|date('Y-m-d') : '' }}</td>
+                            <td>{{ etudiant.typeEtudiant }}</td>
+                            <td>{{ etudiant.typeBourse }}</td>
+                            <td>{{ etudiant.adrese }}</td>
+                            <td>
+                                <a href="{{ path('etudiant_show', {'id': etudiant.id}) }}"
+                                   style="">Show</a>  </td>
+                            <td><a href="{{ path('etudiant_edit', {'id': etudiant.id}) }} ">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="11">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+                    {# display navigation #}
+                    <div class="navigation">
+                        {{ knp_pagination_render(etudiants) }}
+                    </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
+{% endblock %}

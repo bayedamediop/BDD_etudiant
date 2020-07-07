@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Etudiant{% endblock %}
+
+{% block body %}
+    <h4> <a href="{{ path('etudiant_index') }}">Voire la  liste des Etudiants</a>
+    </h4>
+    {{ include('etudiant/_form.html.twig') }}
+
+
+{% endblock %}

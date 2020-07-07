@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8" >
+                <h2 >Listes des Etudiant </h2>
+            </div>
+            <div class="col-sm-4">
+                <a href="{{ path('chambre_new') }}">Create new Chambre</a>
+            </div>
+        </div>
+            <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+
+        <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Numero_chambre</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for chambre in chambres %}
+            <tr>
+                <td class="bg-secondary">{{ chambre.id }}</td>
+                <td class="bg-active">{{ chambre.numeroChambre }}</td>
+                <td>{{ chambre.type }}</td>
+                <td>
+                    <a href="{{ path('chambre_delete', {'id': chambre.id}) }}">Delete</a>
+                    <a href="{{ path('chambre_edit', {'id': chambre.id}) }}">Update</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(chambres) }}
+        </div>
+
+
+    </div>
+        <div class="col-sm-2"> </div>
+</div>
+    </div>
+{% endblock %}
